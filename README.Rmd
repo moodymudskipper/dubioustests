@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 
 # dubioustests
 
-*dubioustests* is a testing package for lazy typers who don't like parentheses.
+*dubioustests* is a testing package for lazy typers with parentheses-phobia.
 
 It essentially proposes shorthands for *testthat* functions, using a syntax
 powered by the *doubt* package, hence its name.
@@ -60,14 +60,14 @@ We can also use the infix notation and write `tan(pi/4) ?i~ 1` instead of
 
 ## Wrap it up with `%?%`
 
-`%?%` is `testthat::test_that()`. The nice thing about it is we don't need brackets
-anymore and the description text comes first.
+`%?%` is `testthat::test_that()` but the description text comes first and we don't
+need parentheses anymore.
 
 Putting  everything together we get :
 
 ```{r}
 "test that my functions work" %?% {
-  ?~ is.numeric(2)
+  ?~  is.numeric(2)
   ?e~ tan(pi/4) ? 1
 }
 ```
@@ -77,16 +77,25 @@ Putting  everything together we get :
 
 The package doesn't propose other aliases for *testthat* functions at the moment.
 
-In many case the `?~` or `?e~` shorthands do the job just fine though.
+In many case the `?~` or `?e~` shorthands do the job just fine though. The two
+following expressions would only differ by the error message they would generate
+but they're  explicit either way.
 
-```{r}
-expect_length(4:6, 3)
-?~ length(4:6) == 3
-expect_gt(4, 3)
-?~ 4 > 3
+```{r, error = TRUE}
+test_that("a few things work as they should", {
+  expect_length(4:6, 4)
+  expect_gt(4, 5)
+  expect_match("foobar","^bar")
+})
+
+"a few things work as they should" %?% {
+  ?~ length(4:6) == 4
+  ?~ 4 > 5
+  ?~ grepl("^bar","foobar")
+}
 ```
 
-And if needed we can easily define a new alias:
+And if needed we can easily define new dubious aliases :
 
 ```{r, error = TRUE}
 `?len~` <- expect_length
