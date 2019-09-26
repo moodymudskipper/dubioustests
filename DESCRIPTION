@@ -1,5 +1,5 @@
 Package: dubioustests
-Title: A Testing Package For Lazy Typers Who Don't Like Parentheses
+Title: A Testing Package For Lazy Typers
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Antoine",
