@@ -1,0 +1,98 @@
+---
+output: github_document
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# dubioustests
+
+*dubioustests* is a testing package for lazy typers who don't like parentheses.
+
+It essentially proposes shorthands for *testthat* functions, using a syntax
+powered by the *doubt* package, hence its name.
+
+Install with :
+
+```{r, eval = FALSE}
+remotes::install_github("moodymudskipper/dubioustests")
+```
+
+## Examples
+
+Let's attach both *dubioustests* and *testthat* and review sets of equivalent calls.
+
+```{r}
+library(testthat)
+library(dubioustests, warn.conflicts = FALSE)
+```
+
+Test if a value is `TRUE` :
+
+```{r}
+expect_true(is.numeric(2))
+?~ is.numeric(2)
+```
+
+Test if two values are equal using `all.equal()`
+
+```{r}
+expect_equal(tan(pi/4), 1)
+?e~ tan(pi/4) ? 1
+```
+
+Test if two values are identical using `identical()`
+
+```{r, error = TRUE}
+expect_identical(tan(pi/4), 1)
+?i~ tan(pi/4) ? 1
+```
+
+We can also use the infix notation and write `tan(pi/4) ?i~ 1` instead of
+`?i~ tan(pi/4) ? 1`
+
+## Wrap it up with `%?%`
+
+`%?%` is `testthat::test_that()`. The nice thing about it is we don't need brackets
+anymore and the description text comes first.
+
+Putting  everything together we get :
+
+```{r}
+"test that my functions work" %?% {
+  ?~ is.numeric(2)
+  ?e~ tan(pi/4) ? 1
+}
+```
+
+
+## Other aliases ?
+
+The package doesn't propose other aliases for *testthat* functions at the moment.
+
+In many case the `?~` or `?e~` shorthands do the job just fine though.
+
+```{r}
+expect_length(4:6, 3)
+?~ length(4:6) == 3
+expect_gt(4, 3)
+?~ 4 > 3
+```
+
+And if needed we can easily define a new alias:
+
+```{r, error = TRUE}
+`?len~` <- expect_length
+`?err~` <- expect_error
+?len~ 4:6 ? 4
+?err~ stop("foo error")
+?err~ stop("foo error") ? "^foo"
+?err~ stop("foo error") ? "^bar"
+```

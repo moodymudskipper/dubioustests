@@ -1,0 +1,14 @@
+Package: dubioustests
+Title: A Testing Package For Lazy Typers Who Don't Like Parentheses
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Antoine",
+           family = "Fabri",
+           role = c("aut", "cre"),
+           email = "antoine.fabri@gmail.com")
+Description: Wrappers around 'testthat' functions for less verbose tests.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Remotes: github::moodymudskipper/doubt
+RoxygenNote: 6.1.1
