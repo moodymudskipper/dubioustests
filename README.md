@@ -13,6 +13,8 @@ Install with :
 remotes::install_github("moodymudskipper/dubioustests")
 ```
 
+Note : this is just a proof of concept, I need to be happy with *doubt* first and submit it to CRAN before advising the use of any package based on it.
+
 ## Examples
 
 Let’s attach both *dubioustests* and *testthat* and review sets of
